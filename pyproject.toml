@@ -1,5 +1,5 @@
 [project]
-name = "ssmt"
+name = "pyssmt"
 version = "0.1.0"
 description = "State-Space Multitaper Spectrogram (Python port of Kim et al. 2018)"
 authors = [{name="Bowen Zheng", email="bowen27@mit.edu"}]
@@ -7,7 +7,7 @@ requires-python = ">=3.9"
 dependencies = [
   "numpy>=1.22",
   "scipy>=1.11",
-  "numba>=0.61",
+  "numba>=0.59",
   "matplotlib>=3.8",
 ]
 
