@@ -1,2 +1,0 @@
-[console_scripts]
-ssmt = ssmt.cli:main
