@@ -8,7 +8,7 @@ The numerical core is a line-for-line translation of the original MATLAB impleme
 ## 1. Installation
 
 ```bash
-git clone https://github.com/<org>/ssmt.git
+git clone https://github.com/bowen-w-zheng/ssmt_python
 cd ssmt
 pip install -e .
 ```
