@@ -6,7 +6,7 @@ The numerical core is a line-for-line translation of the original MATLAB impleme
 
 
 ## 1. Installation
-
+We recommend starting with a clean environement before installing the package. 
 ```bash
 git clone https://github.com/bowen-w-zheng/pyssmt.git
 cd pyssmt
