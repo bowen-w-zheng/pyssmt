@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: pyssmt
+Version: 0.1.0
+Summary: State-Space Multitaper Spectrogram (Python port of Kim et al. 2018)
+Author-email: Bowen Zheng <bowen27@mit.edu>
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: numpy>=1.22
+Requires-Dist: scipy>=1.11
+Requires-Dist: numba>=0.59
+Requires-Dist: matplotlib>=3.8
+Dynamic: license-file

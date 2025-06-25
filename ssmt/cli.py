@@ -8,7 +8,7 @@ from .plot import show_spectrogram
 import matplotlib.pyplot as plt
 
 def main(argv: list[str] | None = None) -> None:
-    p = argparse.ArgumentParser(prog="python -m ssmt",
+    p = argparse.ArgumentParser(prog="python -m pyssmt",
                                 description="State-Space Multitaper Spectrogram")
     p.add_argument("mat_file", type=pl.Path, help="SED10.mat path")
     p.add_argument("--tw", type=float, default=2, help="time-bandwidth")
@@ -17,16 +17,21 @@ def main(argv: list[str] | None = None) -> None:
 
     fs = 250
     win_sec = 2
-    y = load_sed10(args.mat_file, fs)
-    nw     = win_sec * fs
-    nwin   = len(y) // nw
-    yy     = y[:nwin*nw].reshape(nw, nwin, order="F")
 
-    # short slice for EM
-    freq_Y = np.fft.fft(
-        dpss_tapers(nw, args.tw, args.k)[0][:,:,None] * yy[:,None,:150], axis=0
-    )
-    pars   = estimate_parameters(freq_Y, verbose=True)
+
+    y = load_sed10(args.mat_file, fs)
+    nw     = int(win_sec * fs)
+    N   = len(y) // nw # number of windows
+    yy     = y[:N*nw].reshape((nw, N), order="F")
+
+    tapers, _ = dpss_tapers(nw, args.tw, args.k)
+    y_ex = np.broadcast_to(yy[:, None, :], (nw, args.k, N)).copy() 
+    mtY = tapers[:, :, None] * y_ex 
+    mtFrequencyY = np.fft.fft(mtY, n=nw, axis=0)  # (nw, k, N)
+
+    obs_cut = 25*win_sec # 25 Hz
+    guess_window = 150
+    pars   = estimate_parameters(mtFrequencyY[:,:,:guess_window], obs_cut=obs_cut, verbose=True)
 
     spect, _ = ss_mt(yy, fs, args.tw, args.k,
                      pars["sn"], pars["on"], pars["is0"], pars["iv0"])

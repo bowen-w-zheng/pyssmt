@@ -120,7 +120,6 @@ def _em_step(systemNoise, observationNoise,
                         - np.log(denom_r) - np.log(np.pi) )
 
     return sn_next, on_next, initialState, initialVariance, ll
-    return sn_next, on_next, is0, iv0, ll
 
 def estimate_parameters(freq_Y: np.ndarray,
                         n_iter: int = 500,
@@ -143,7 +142,8 @@ def estimate_parameters(freq_Y: np.ndarray,
         sn_n, on_n, _, _, ll = _em_step(
             sn, on, is0, iv0, freq_Y, alpha, beta, obs_cut
         )
-        d = np.abs(sn - sn_n).mean()
+        d = np.abs(sn - sn_n) / np.abs(sn + sn_n) # relative change
+        d = d.mean()
         sn, on = sn_n, on_n
         ll_trace.append(ll)
         it += 1

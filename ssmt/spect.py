@@ -8,7 +8,7 @@ def ss_mt(yy: np.ndarray, fs: int, tw: float, k: int,
           sn: np.ndarray, on: np.ndarray,
           is0: np.ndarray, iv0: np.ndarray) -> tuple[np.ndarray, dict]:
     nw, nwin = yy.shape
-    tapers, _ = dpss_tapers(nw, tw, k)
+    tapers, _ = dpss_tapers(nw, tw, k,)
     mtY = tapers[:, :, None] * yy[:, None, :]
     freq_Y = np.fft.fft(mtY, axis=0)
 
@@ -29,4 +29,7 @@ def ss_mt(yy: np.ndarray, fs: int, tw: float, k: int,
 
     mt_spect = (np.abs(state)**2) / fs      # (nw,k,nwin)
     spect    = mt_spect.mean(axis=1)        # taper-avg
-    return spect, dict(state=state, var=var, kgain=kgain)
+    return spect, dict(state=state, var=var, kgain=kgain, 
+                       state_prediction = pred_s, variance_prediction = pred_v, resid = resid,
+                       system_noise = sn, obs_noise = on, 
+                       mtSpects = mt_spect)
