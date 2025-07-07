@@ -2,7 +2,7 @@
 Python implementation of the method described in  
 > S.-E. Kim, M. Behr, D. Ba, and E. N. Brown, *"State-Space Multitaper Time-Frequency Analysis,"* Proceedings of the National Academy of Sciences, vol. 115, no.1, pp. E5-E14, Jan 2018. (http://www.pnas.org/content/early/2017/12/15/1702877115) 
 
-The numerical core is a line-for-line translation of the original MATLAB implementation released under CC BY-NC-SA 4.0 at <https://github.com/seekim/SSMT>.
+The numerical core is a line-for-line translation of the original MATLAB implementation at <https://github.com/seekim/SSMT>.
 
 
 ## 1. Installation
